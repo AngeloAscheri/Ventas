@@ -12,7 +12,7 @@ CREATE TABLE base.Producto(
     productoId int NOT NULL AUTO_INCREMENT,
     descripcion varchar(255),
     codigo varchar(255),
-    stock int
+    stock int,
     precio FLOAT(5, 2),
     PRIMARY KEY(productoId)
 );
@@ -36,6 +36,7 @@ CREATE TABLE base.DetalleVenta(
     CONSTRAINT FkCcomprobante FOREIGN KEY (ventaId),
     CONSTRAINT FkProducto FOREIGN KEY (productoId),
 );
+
 
 
 
