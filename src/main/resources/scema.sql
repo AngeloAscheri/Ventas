@@ -37,6 +37,3 @@ CREATE TABLE base.DetalleVenta(
     CONSTRAINT FkProducto FOREIGN KEY (productoId),
 );
 
-
-
-
