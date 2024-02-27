@@ -3,25 +3,48 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.io.Serializable;
 
 @Entity
 @Setter
 @Getter
-public class Venta {
+public class Venta implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ventaId;
 
-    @Column
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", referencedColumnName = "id")
     private Cliente clienteId;
+
+    @ManyToOne
+    @JoinColumn(name = "producto_id", referencedColumnName = "id")
+    private Producto producto;
 
     @Column
     private double total;
 
     @Column
-    private LocalDateTime fecha;
+    private String fecha;
+
+    private int cantidad;
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
 
     public Long getVentaId() {
         return ventaId;
@@ -47,11 +70,11 @@ public class Venta {
         this.total = total;
     }
 
-    public LocalDateTime getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDateTime fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 }

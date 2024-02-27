@@ -25,7 +25,7 @@ public class Producto {
     private int stock;
 
     @Column
-    private double precio;
+    private long precio;
 
     public Long getProductoId() {
         return productoId;
@@ -59,11 +59,11 @@ public class Producto {
         this.stock = stock;
     }
 
-    public double getPrecio() {
+    public long getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(long precio) {
         this.precio = precio;
     }
 }

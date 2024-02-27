@@ -25,7 +25,7 @@ public class ProductoControlador {
     public ResponseEntity<?> getAll(){
         try {
             return  ResponseEntity.status(HttpStatus.OK).
-                    body(repo.findAll());
+                    body(repo.getAll());
 
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).
@@ -36,7 +36,7 @@ public class ProductoControlador {
     public ResponseEntity<?> getOne(@PathVariable Long id){
         try {
             return  ResponseEntity.status(HttpStatus.OK).
-                    body(repo.findById(id));
+                    body(repo.byId(id));
 
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).
@@ -56,9 +56,9 @@ public class ProductoControlador {
     }
 
     @PutMapping("/updateById/{id}")
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody Producto  entity){
+    public ResponseEntity<?> update(@RequestBody Producto  entity){
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(repo.update(id,entity));
+            return ResponseEntity.status(HttpStatus.OK).body(repo.update(entity));
         }catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("{\"error\":\"Error.\"}");

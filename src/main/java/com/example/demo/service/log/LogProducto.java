@@ -13,7 +13,7 @@ public class LogProducto implements ProductoService<Producto> {
     @Autowired
     private RepositoryProducto repo;
     @Override
-    public List<Producto> findAll() throws Exception {
+    public List<Producto> getAll() throws Exception {
         try {
             return repo.findAll();
         } catch (Exception e){
@@ -23,11 +23,10 @@ public class LogProducto implements ProductoService<Producto> {
     }
 
     @Override
-    public Producto findById(Long id) throws Exception {
-
+    public Optional<Producto> byId(Long id) throws Exception {
         try {
-            Optional<Producto> personaOptional= repo.findById(id);
-            return personaOptional.get();
+
+            return repo.findById(id);
 
         } catch (Exception e){
             throw new Exception(e.getMessage());
@@ -35,23 +34,26 @@ public class LogProducto implements ProductoService<Producto> {
     }
 
     @Override
-    public Producto save(Producto entity) throws Exception {
+    public Producto save(Producto producto) throws Exception {
 
         try {
-            entity = repo.save(entity);
-            return entity;
+            return repo.save(producto);
+
         } catch (Exception e){
             throw new Exception(e.getMessage());
         }
     }
 
     @Override
-    public Producto update(Long id, Producto entity) throws Exception {
-
+    public Optional<Producto> update(Producto producto) throws Exception {
         try {
-            Optional<Producto> personaOptional = repo.findById(id);
-            Producto cliente = personaOptional.get();
-            return cliente = repo.save(entity);
+
+            if (repo.existsById(producto.getProductoId())){
+                repo.save(producto);
+
+            } else System.out.println("No se pudo completar la operación");
+
+            return repo.findById(producto.getProductoId());
         } catch (Exception e){
             throw new Exception(e.getMessage());
         }

@@ -1,11 +1,14 @@
 package com.example.demo.service;
 
+import com.example.demo.models.Producto;
+
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductoService <E>{
-    List<E> findAll() throws Exception;
-    E findById(Long id) throws Exception;
-    E save(E entity) throws Exception;
-    E update(Long id, E entity) throws Exception;
-    boolean delete(Long id) throws Exception;
+    List<Producto> getAll()throws Exception;
+    Optional<Producto> byId(Long id)throws Exception;
+    Producto save (Producto producto)throws Exception;
+    Optional<Producto> update(Producto cliente)throws Exception;
+    boolean delete(Long id)throws Exception;
 }

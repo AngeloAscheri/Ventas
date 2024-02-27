@@ -16,10 +16,9 @@ public class LogCliente implements ClienteService<Cliente> {
     private RepositoryCliente repo;
 
     @Override
-    public List<Cliente> findAll() throws Exception {
+    public List<Cliente> getAll() throws Exception {
         try {
-            List<Cliente> entities = repo.findAll();
-            return entities;
+            return repo.findAll();
         } catch (Exception e){
             throw new Exception(e.getMessage() +
                     " "+ e.getCause());
@@ -27,35 +26,33 @@ public class LogCliente implements ClienteService<Cliente> {
     }
 
     @Override
-    public Cliente findById(Long id) throws Exception {
-
+    public Optional<Cliente> ById(Long id) throws Exception {
         try {
-            Optional<Cliente> personaOptional= repo.findById(id);
-            return personaOptional.get();
-
+            return repo.findById(id);
         } catch (Exception e){
             throw new Exception(e.getMessage());
         }
     }
 
     @Override
-    public Cliente save(Cliente entity) throws Exception {
+    public Cliente save(Cliente cliente) throws Exception {
 
         try {
-            entity = repo.save(entity);
-            return entity;
+            return repo.save(cliente);
         } catch (Exception e){
             throw new Exception(e.getMessage());
         }
     }
 
     @Override
-    public Cliente update(Long id, Cliente entity) throws Exception {
+    public Optional<Cliente> update(Cliente cliente, Long id) throws Exception {
 
         try {
-            Optional<Cliente> personaOptional= repo.findById(id);
-            Cliente cliente = personaOptional.get();
-            return cliente = repo.save(entity);
+            if (repo.existsById(id)){
+                repo.save(cliente);
+            } else System.out.println("No se pudo completar la operación");
+
+            return repo.findById(id);
         } catch (Exception e){
             throw new Exception(e.getMessage());
         }
